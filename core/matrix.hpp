@@ -29,6 +29,7 @@ public:
     Matrix subtract(double scalar) const; //scalar subtract
     Matrix clip(double min, double max) const; //limit values in range
     Matrix argmax(int axis) const; //return indices of max in array
+    void print() const;
 private:
     int rows_, cols_;
     std::vector<double> data;

@@ -20,7 +20,8 @@ Matrix Matrix::ones(int rows, int cols){
 //generate a random number using gaussian dist
 Matrix Matrix::randn(int rows, int cols){
     Matrix m(rows, cols);
-    std::mt19937 gen(std::random_device{}());
+    std::random_device rd;
+    std::mt19937 gen(rd());
     std::normal_distribution<double> dist(0.0, 1.0);
     for(int i = 0; i < rows * cols; i++){
         m.data[i] = dist(gen);
@@ -156,4 +157,110 @@ int Matrix::getCols() const{
 
 const std::vector<double> Matrix::getData() const{
     return data;
+}
+
+Matrix Matrix::multiply(double scalar) const{
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_*cols_; i++){
+        m.data[i] = data[i] * scalar;
+    }
+    return m;
+}
+
+Matrix Matrix::divide(double scalar) const{
+    if(scalar == 0.0){
+        throw std::invalid_argument("division by zero");
+    }
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_*cols_; i++){
+        m.data[i] = data[i] / scalar;
+    }
+    return m;
+}
+
+Matrix Matrix::subtract(double scalar) const{
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_*cols_; i++){
+        m.data[i] = data[i] - scalar;
+    }
+    return m;
+}
+
+Matrix Matrix::exp() const{
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_*cols_; i++){
+        m.data[i] = std::exp(data[i]);
+    }
+    return m;
+}
+
+
+Matrix Matrix::copy() const{
+    return *this;
+}
+
+Matrix Matrix::clip(double min, double max) const{
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_*cols_; i++){
+        if(data[i] < min){
+            m.data[i] = min;
+        }
+        else if(data[i] > max){
+            m.data[i] = max;
+        }
+        else{
+            m.data[i] = data[i];
+        }
+    }
+    return m;
+}
+
+Matrix Matrix::multiply(const Matrix& other) const{
+    if(cols_ != other.cols_){
+        throw std::invalid_argument("shape mismatch for element wise multiplication");
+    }
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_*cols_; i++){
+        m.data[i] = data[i] * other.data[i];
+    }
+    return m;
+}
+
+Matrix Matrix::argmax(int axis) const {
+    if(axis == 0){
+        Matrix m(1, cols_);
+        for(int j = 0; j < cols_; j++){
+            double largest = std::numeric_limits<double>::lowest();
+            for(int i = 0; i < rows_; i++){
+                if(at(i, j) > largest){
+                    largest = at(i, j);
+                    m.data[j] = i; //store row index
+                }
+            }
+        }
+        return m;
+    }
+
+    else{
+        Matrix m(rows_, 1);
+        for(int i = 0; i < rows_; i++){
+            double largest = std::numeric_limits<double>::lowest();
+            for(int j = 0; j < cols_; j++){
+                if(at(i, j) > largest){
+                    largest = at(i, j);
+                    m.data[i] = j; //store column index
+                }
+            }
+        }
+        return m;
+    }
+}
+
+void Matrix::print() const{
+    for(int i = 0; i < rows_; i++){
+        for(int j = 0; j < cols_; j++){
+            std::cout << data[i * cols_ + j] << " ";
+        }
+        std::cout << "" << std::endl;
+    }
 }
