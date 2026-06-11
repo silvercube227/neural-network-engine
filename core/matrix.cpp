@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <limits>
 
+
+Matrix::Matrix() : rows_(0), cols_(0), data(0) {}
+
 Matrix::Matrix(int rows, int cols, double fill_value): rows_(rows), cols_(cols), data(rows*cols, fill_value){
 
 }
