@@ -4,7 +4,6 @@
 class LayerBase{
     public:
         Matrix outputs;
-        Matrix inputs;
         Matrix dinputs;
         
         //virtual - subclass override, = 0 -- pure virtual must override

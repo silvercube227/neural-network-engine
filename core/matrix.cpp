@@ -267,3 +267,12 @@ void Matrix::print() const{
         std::cout << "" << std::endl;
     }
 }
+
+Matrix Matrix::sign() const{
+    Matrix m(rows_, cols_);
+    //condition ? value_if_true : value_if_false
+    for(int i = 0; i < rows_ * cols_; i++){
+        m.data[i] = (data[i] >= 0) ? 1.0 : -1.0;
+    }
+    return m;
+}
