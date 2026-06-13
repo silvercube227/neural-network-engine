@@ -3,7 +3,6 @@
 LayerDropout::LayerDropout(double rate) : rate_(1 - rate){
 }
 
-
 void LayerDropout::forward(const Matrix& inputs, bool training){
     if (not training){
         outputs = inputs.copy();

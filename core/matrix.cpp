@@ -276,3 +276,42 @@ Matrix Matrix::sign() const{
     }
     return m;
 }
+
+Matrix Matrix::bernoulli(int rows, int cols, double p){
+    Matrix m(rows, cols);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::bernoulli_distribution dist(p);
+    for(int i = 0; i < rows * cols; i++){
+        m.data[i] = dist(gen) ? 1.0 : 0.0;
+    }
+    return m;
+}
+
+Matrix Matrix::maximum(double scalar) const{
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_ * cols_; i++){
+        m.data[i] = (data[i] > scalar) ? data[i] : scalar;
+    }
+    return m;
+}
+
+Matrix Matrix::greaterThanZero() const{
+    Matrix m(rows_, cols_);
+    //condition ? value_if_true : value_if_false
+    for(int i = 0; i < rows_ * cols_; i++){
+        m.data[i] = (data[i] > 0) ? 1.0 : 0.0;
+    }
+    return m;
+}
+
+Matrix Matrix::reciprocal() const {
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_ * cols_; i++){
+        if(data[i] == 0.0){
+            throw std::invalid_argument("division by zero in reciprocal");
+        }
+        m.data[i] = 1.0 / data[i];
+    }
+    return m;
+}
