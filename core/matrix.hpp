@@ -34,8 +34,12 @@ class Matrix{
         Matrix sign() const; //each elemnt 1 if >= 0, - 1 if < 0
         static Matrix bernoulli(int rows, int cols, double p); //bernoulli distribution along array
         Matrix maximum(double scalar) const;
-        Matrix greaterThanZero() const;
+        Matrix greaterThan(double scalar) const;
         Matrix reciprocal() const;
+        Matrix reshape(int rows, int cols) const;
+        Matrix diagflat(int k) const;
+        Matrix row(int row) const;
+        Matrix setRow(int row, const Matrix& values);
     private:
         int rows_, cols_;
         std::vector<double> data;

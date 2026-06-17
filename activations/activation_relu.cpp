@@ -6,7 +6,7 @@ void ActivationReLU::forward(const Matrix& inputs, bool training){
 }
 
 void ActivationReLU::backward(const Matrix& dvalues){
-    dinputs = dvalues.multiply(inputs_.greaterThanZero());
+    dinputs = dvalues.multiply(inputs_.greaterThan(0.0));
 }
 
 Matrix ActivationReLU::predictions(const Matrix& outputs) const{
