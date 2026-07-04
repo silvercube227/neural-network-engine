@@ -32,4 +32,21 @@ void LayerDense::backward(const Matrix& dvalues){
         dbiases_ = dbiases_.add(biases_.multiply(bias_regularizer_l2_ * 2.0));
     }
     dinputs = dvalues.dot(weights_.transpose());
+}   
+
+double LayerDense::regularization_loss(){
+    double regularization_loss = 0.0;
+    if(weight_regularizer_l1_ > 0){
+        regularization_loss += weights_.abs().sum() * weight_regularizer_l1_;
+    }
+    if(bias_regularizer_l1_ > 0){
+        regularization_loss += biases_.abs().sum() * bias_regularizer_l1_;
+    }
+    if(weight_regularizer_l2_ > 0 ){
+        regularization_loss += weights_.multiply(weights_).sum() * weight_regularizer_l2_;
+    }
+    if(bias_regularizer_l2_ > 0 ){
+        regularization_loss += biases_.multiply(biases_).sum() * bias_regularizer_l2_;
+    }
+    return regularization_loss;
 }

@@ -379,3 +379,20 @@ Matrix Matrix::setRow(int row, const Matrix& values){
     }
     return m;
 }
+
+double Matrix::mean() const{
+    double sum = 0.0;
+    for(int i = 0; i < rows_*cols_; ++i){
+        sum += data[i];
+    }
+    return sum / (rows_ * cols_);
+}
+
+Matrix Matrix::abs() const{
+    Matrix m(rows_, cols_);
+    //condition ? value_if_true : value_if_false
+    for(int i = 0; i < rows_ * cols_; i++){
+        m.data[i] = (data[i] > 0) ? data[i] : (data[i] * -1.0);
+    }
+    return m;
+}

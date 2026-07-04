@@ -12,4 +12,5 @@ class LayerBase{
 
         //virtual destructor needed for inheritance, = default means use default constructor
         virtual ~LayerBase() = default;
+        virtual double regularization_loss() { return 0.0; }
 };

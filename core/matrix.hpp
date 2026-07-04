@@ -40,6 +40,9 @@ class Matrix{
         Matrix diagflat(int k) const;
         Matrix row(int row) const;
         Matrix setRow(int row, const Matrix& values);
+        double mean() const;
+        Matrix abs() const;
+        double sum() const;
     private:
         int rows_, cols_;
         std::vector<double> data;
