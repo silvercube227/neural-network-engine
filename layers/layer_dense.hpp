@@ -7,12 +7,7 @@ class LayerDense : public LayerBase{
             double weight_regularizer_l2 = 0.0, double bias_regularizer_l1 = 0.0, double bias_regularizer_l2 = 0.0);
         void forward(const Matrix& inputs, bool training) override;
         void backward(const Matrix& dvalues) override;
-        Matrix getWeights();
-        Matrix getBiases();
-        double getWeightRegularizerL1();
-        double getBiasRegularizerL1();
-        double getWeightRegularizerL2();
-        double getBiasRegularizerL2();
+        double regularization_loss();
     private:
         Matrix weights_;
         Matrix biases_;

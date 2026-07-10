@@ -396,3 +396,19 @@ Matrix Matrix::abs() const{
     }
     return m;
 }
+
+double Matrix::sum() const{
+    double sum = 0.0;
+    for(int i = 0; i < rows_ * cols_; i++){
+        sum += data[i];
+    }
+    return sum;
+}
+
+Matrix Matrix::log() const{
+    Matrix m(rows_, cols_);
+    for(int i = 0; i < rows_ * cols_; ++i){
+        m.data[i] = std::log(data[i]);
+    }
+    return m;
+}

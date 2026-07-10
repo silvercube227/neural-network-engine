@@ -43,6 +43,7 @@ class Matrix{
         double mean() const;
         Matrix abs() const;
         double sum() const;
+        Matrix log() const;
     private:
         int rows_, cols_;
         std::vector<double> data;

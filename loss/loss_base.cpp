@@ -12,7 +12,6 @@ double LossBase::regularization_loss(){
     double regularization_loss = 0.0;
     for(int i = 0; i < trainable_layers_.size(); ++i){
         regularization_loss += trainable_layers_[i]->regularization_loss();
-
     }
     return regularization_loss;
 }
